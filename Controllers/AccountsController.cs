@@ -30,5 +30,12 @@ public class AccountsController : ControllerBase
             return Ok(id_res);
         }
     }
+
+    [HttpPost]
+    public IActionResult CreateAccount([FromBody] CreateAccountRequest AccReq)
+    {
+        var result=_accountService.CreateAccount(AccReq);
+        return Created($"/api/accounts/{result.Id}",result);
+    }
     
 }
