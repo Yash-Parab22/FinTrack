@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
 public class AccountsController : ControllerBase
 {   
-    private IAccountService _accountService;
+    private readonly IAccountService _accountService;
     public AccountsController(IAccountService x)
     {
         _accountService=x;
@@ -14,6 +14,21 @@ public class AccountsController : ControllerBase
     public IActionResult GetAccounts()
     {
         return Ok(_accountService.GetAccounts());
+    }
+
+    [HttpGet("{id}")]
+
+    public IActionResult GetAccountById(int id)
+    {
+        var id_res=_accountService.GetAccountById(id);
+        if (id_res == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(id_res);
+        }
     }
     
 }
