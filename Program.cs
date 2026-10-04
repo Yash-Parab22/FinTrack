@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSingleton<IAccountService, AccountService>();
+builder.Services.AddSingleton<ITransactionService,TransactionService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

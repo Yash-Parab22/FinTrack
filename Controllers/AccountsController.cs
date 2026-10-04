@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 public class AccountsController : ControllerBase
 {   
     private readonly IAccountService _accountService;
-    public AccountsController(IAccountService x)
+    private readonly ITransactionService _transactionService;
+    public AccountsController(IAccountService x,ITransactionService y)
     {
         _accountService=x;
+        _transactionService=y;
     }
     [HttpGet]
     
@@ -65,5 +67,17 @@ public class AccountsController : ControllerBase
             return NoContent();
         }
     }
-    
+    [HttpGet("{id}/transactions")]
+    public IActionResult GetTrancationsByAccount(int id)
+    {
+        List<Transaction>? allT= _transactionService.GetTransactionsByAccount(id);
+        if (allT == null)
+        {
+            return BadRequest();
+        }
+        else
+        {
+            return Ok(allT);
+        }
+    }
 }
