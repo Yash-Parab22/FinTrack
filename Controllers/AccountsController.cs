@@ -37,5 +37,33 @@ public class AccountsController : ControllerBase
         var result=_accountService.CreateAccount(AccReq);
         return Created($"/api/accounts/{result.Id}",result);
     }
+
+    [HttpPut("{id}")]
+
+    public IActionResult UpdateAccount(int id, [FromBody] UpdateAccountRequest req)
+    {
+        Account? updAcc=_accountService.UpdateAccount(id,req);
+        if (updAcc != null)
+        {
+            return Ok(updAcc);
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+    [HttpDelete("{id}")]
+    public IActionResult DeleteAccount(int id)
+    {
+        bool deleteSuccess=_accountService.DeleteAccount(id);
+        if (!deleteSuccess)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return NoContent();
+        }
+    }
     
 }

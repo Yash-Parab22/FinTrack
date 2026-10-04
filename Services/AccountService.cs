@@ -37,4 +37,19 @@ public class AccountService : IAccountService
         _nextId++;
         return newAc;
     }
+    public Account? UpdateAccount(int Id,UpdateAccountRequest uar)
+    {
+        Account? act= acc.FirstOrDefault(a => a.Id == Id);
+        if(act==null) return act;
+        act.Name=uar.Name;
+        act.Type=uar.Type;
+        return act;
+    }
+    public bool DeleteAccount(int Id)
+    {   
+        Account? act=acc.FirstOrDefault(a=> a.Id==Id);
+        if(act==null) return false;
+        acc.Remove(act);
+        return true;
+    }
 }
