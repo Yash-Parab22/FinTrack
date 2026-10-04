@@ -32,6 +32,8 @@ public class TransactionController : ControllerBase
     [HttpPost]
     public IActionResult CreateTransaction([FromBody] CreateTransactionRequest ctr)
     {
+        Account? c=_accountService.GetAccountById(ctr.AccountId);
+        if(c==null) return NotFound();
         Transaction? T=_transactionService.CreateTransaction(ctr);
         if (T == null)
         {
